@@ -15,7 +15,7 @@ public class RepositorioFuncionariosArray {
         return instance;
     }
 	
-	private RepositorioFuncionariosArray(int qtd){
+	public RepositorioFuncionariosArray(int qtd){
 		this.funcionarios = new Funcionario[qtd];
 		this.proxima = 0;
 	}
@@ -28,6 +28,33 @@ public class RepositorioFuncionariosArray {
 		}
 	}
 	
+	public void cadastrarFuncionario(String nome, String cargo, char sexo, int matricula, boolean motorista){
+		Funcionario temp = new Funcionario(nome,cargo,sexo,matricula,motorista);
+		this.funcionarios[this.proxima] = temp;
+		this.proxima = proxima+1;
+		if(this.proxima == this.funcionarios.length){
+			this.duplicaArray();
+		}
+	}
+	
+	public void removerFuncionario(int matricula) {
+		int i = this.pesquisaIndice(matricula);
+		if (i != this.proxima) {
+			this.funcionarios[i] = this.funcionarios[this.proxima - 1];
+			this.funcionarios[this.proxima - 1] = null;
+	        this.proxima = this.proxima - 1;
+		}
+	}
+	
+	public boolean existe(int matricula) {
+		boolean existe = false;
+		int indice = this.pesquisaIndice(matricula);
+		if (indice != proxima) {
+			existe = true;
+        }
+        return existe;
+    }
+	
 	public void duplicaArray(){
 		if(this.funcionarios != null && this.funcionarios.length > 0){
 			Funcionario[] arrayDuplicado = new Funcionario[this.funcionarios.length * 2];
@@ -37,5 +64,26 @@ public class RepositorioFuncionariosArray {
 			funcionarios=arrayDuplicado;
 		}
 	}
-
+	
+	private int pesquisaIndice(int matricula){
+		int resultado = 0;
+		boolean achouIndice = false;
+		while ((!achouIndice) && (resultado < this.proxima)) {
+            if (matricula == this.funcionarios[resultado].getMatricula()) {
+            	achouIndice = true;
+            } else {
+                resultado = resultado + 1;
+            }
+        }
+		return resultado;
+	}
+	
+	public Funcionario procurar(int matricula){
+		int i = this.pesquisaIndice(matricula);
+		Funcionario funcionario = null;
+		if(i != this.proxima){
+			funcionario = this.funcionarios[i];
+		}
+		return funcionario;
+	}
 }

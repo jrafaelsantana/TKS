@@ -1,4 +1,5 @@
 package com.tks.negocio;
+import com.tks.negocio.beans.Funcionario;
 
 public class ServidorBanco {
 	private CadastroFuncionario funcionario;
@@ -16,11 +17,20 @@ public class ServidorBanco {
         return instance;
     }
 	
-	public void cadastrarFuncionario(){
-		funcionario.cadastrarFuncionario();
+	public void cadastrarFuncionario(Funcionario f){
+		funcionario.cadastrar(f);
 	}
 	
-	public void removerFuncionario(){
-		funcionario.removerFuncionario();
+	public void cadastrarFuncionario(String nome, String cargo, char sexo, int matricula, boolean motorista){
+		Funcionario f = new Funcionario(nome,cargo,sexo,matricula,motorista);
+		funcionario.cadastrar(f);
+	}
+	
+	public void removerFuncionario(int matricula){
+		funcionario.apagar(matricula);
+	}
+	
+	public Funcionario procurarFuncionario(int matricula){
+		return funcionario.procurar(matricula);
 	}
 }
