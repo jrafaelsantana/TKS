@@ -10,7 +10,7 @@ public class RepositorioFuncionariosArray {
 	
 	public static RepositorioFuncionariosArray getInstance() {
         if (instance == null) {
-            instance = new RepositorioFuncionariosArray(100);
+            instance = new RepositorioFuncionariosArray(1);
         }
         return instance;
     }
@@ -28,8 +28,8 @@ public class RepositorioFuncionariosArray {
 		}
 	}
 	
-	public void cadastrarFuncionario(String nome, String cargo, char sexo, int matricula, boolean motorista){
-		Funcionario temp = new Funcionario(nome,cargo,sexo,matricula,motorista);
+	public void cadastrarFuncionario(String nome, String cargo, char sexo, int matricula, boolean motorista, int qtdCotas){
+		Funcionario temp = new Funcionario(nome,cargo,sexo,matricula,motorista,qtdCotas);
 		this.funcionarios[this.proxima] = temp;
 		this.proxima = proxima+1;
 		if(this.proxima == this.funcionarios.length){
@@ -57,7 +57,7 @@ public class RepositorioFuncionariosArray {
 	
 	public void duplicaArray(){
 		if(this.funcionarios != null && this.funcionarios.length > 0){
-			Funcionario[] arrayDuplicado = new Funcionario[this.funcionarios.length * 2];
+			Funcionario[] arrayDuplicado = new Funcionario[this.funcionarios.length + 1];
 			for(int i=0; i<=this.funcionarios.length; i++){
 				arrayDuplicado[i] = funcionarios[i];
 			}
@@ -85,5 +85,9 @@ public class RepositorioFuncionariosArray {
 			funcionario = this.funcionarios[i];
 		}
 		return funcionario;
+	}
+	
+	public Funcionario[] getArray(){
+		return funcionarios;
 	}
 }

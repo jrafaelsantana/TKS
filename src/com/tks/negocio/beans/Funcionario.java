@@ -7,15 +7,15 @@ public class Funcionario {
 	private char sexo;
 	private int matricula;
 	private boolean motorista;
-	//private int plantaoDia; //Será informado na hora do seleção
-	//private int qtdCotas; //Será informado na hora da seleção
+	private int qtdCotas;
 	
-	public Funcionario(String nome, String cargo, char sexo, int matricula, boolean motorista){
+	public Funcionario(String nome, String cargo, char sexo, int matricula, boolean motorista, int qtdCotas){
 		this.nome=nome;
 		this.cargo=cargo;
 		this.sexo=sexo;
 		this.matricula=matricula;
 		this.motorista=motorista;
+		this.qtdCotas = qtdCotas;
 	}
 
 	public String getNome() {
