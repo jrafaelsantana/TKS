@@ -35,7 +35,7 @@ public class EscalaMes {
 				int contaMulheres = 0;
 				for(int seilah = 0; seilah < escolhidos.length; seilah++){
 					
-					int m = escolhidos[seilah].getMatricula();
+					String m = escolhidos[seilah].getMatricula();
 					Pessoa teste = Servidor.getInstance().procurar(m);
 					
 					if(teste.getSexo() == 'F'){
@@ -198,10 +198,11 @@ public class EscalaMes {
 		int i;
 		do{
 			for(i = 0; i < this.escolhidos.length; i ++){
-			int x, y, z;
+			int y, z;
+			String x;
 			Scanner sc = new Scanner(System.in);
 			System.out.println("Insira a matricula do escolhido:");
-			x = sc.nextInt();//tem de identificar se a matricula existe no repositorio
+			x = sc.nextLine();//tem de identificar se a matricula existe no repositorio
 			System.out.println("Insira a escala do escolhido:");
 			y = sc.nextInt();
 			System.out.println("Insira a quantidade de serviços do escolhido:");

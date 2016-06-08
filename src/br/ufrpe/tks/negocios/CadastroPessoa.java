@@ -3,6 +3,8 @@ package br.ufrpe.tks.negocios;
 import java.util.ArrayList;
 
 import br.ufrpe.tks.dados.IRepositorioPessoa;
+import br.ufrpe.tks.exceptions.LoginIncorretoException;
+import br.ufrpe.tks.exceptions.SenhaIncorretaException;
 import br.ufrpe.tks.exceptions.UsuarioJaCadastradoException;
 import br.ufrpe.tks.exceptions.UsuarioNaoEncontradoException;
 import br.ufrpe.tks.negocios.beans.Administrador;
@@ -22,7 +24,7 @@ public class CadastroPessoa {
 		
 	}
 	
-	public void cadastrarFuncionario(String nome, String cargo, char sexo, int matricula, boolean motorista, int senha) throws UsuarioJaCadastradoException{
+	public void cadastrarFuncionario(String nome, String cargo, char sexo, String matricula, boolean motorista, String senha) throws UsuarioJaCadastradoException{
 		if(this.pessoas.procurar(matricula) == null){
 			Pessoa funcionario = new Funcionario(nome, cargo, sexo, matricula, motorista, senha);
 			this.pessoas.cadastrar(funcionario);
@@ -32,7 +34,7 @@ public class CadastroPessoa {
 		}
 	}
 	
-	public void cadastrarAdministrador(String nome, char sexo, int matricula, int senha) throws UsuarioJaCadastradoException{
+	public void cadastrarAdministrador(String nome, char sexo, String matricula, String senha) throws UsuarioJaCadastradoException{
 		if(this.pessoas.procurar(matricula) == null){
 			Pessoa funcionario = new Administrador(nome, sexo, matricula, senha);
 			this.pessoas.cadastrar(funcionario);
@@ -70,7 +72,7 @@ public class CadastroPessoa {
 		}
 	}
 	
-	public void remover(int matricula) throws UsuarioNaoEncontradoException{
+	public void remover(String matricula) throws UsuarioNaoEncontradoException{
 		Pessoa pessoa = this.pessoas.procurar(matricula);
 		if(pessoa != null){
 			this.pessoas.remover(pessoa);
@@ -80,7 +82,7 @@ public class CadastroPessoa {
 		}
 	}
 	
-	public Pessoa procurar(int matricula) throws UsuarioNaoEncontradoException{
+	public Pessoa procurar(String matricula) throws UsuarioNaoEncontradoException{
 		Pessoa procurado = null;
 		procurado = this.pessoas.procurar(matricula);
 		if(procurado == null){
@@ -88,6 +90,25 @@ public class CadastroPessoa {
 			throw usr;
 		}
 		return procurado;
+	}
+	
+	public boolean login(String matricula, String senha) throws LoginIncorretoException, SenhaIncorretaException{
+		boolean efetuado = false;
+		if(matricula != null && senha != null){
+			Pessoa auxiliar = this.pessoas.procurar(matricula);
+			if(auxiliar != null){
+				if(auxiliar.getSenha().equals(senha)){
+					efetuado = true;
+				}else{
+					SenhaIncorretaException x = new SenhaIncorretaException();
+					throw x;
+				}
+			}else{
+				LoginIncorretoException x = new LoginIncorretoException();
+				throw x;
+			}
+		}
+		return efetuado;
 	}
 	
 	public ArrayList<Pessoa> getPessoas() {

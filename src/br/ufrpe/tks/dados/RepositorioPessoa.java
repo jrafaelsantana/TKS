@@ -35,11 +35,11 @@ public class RepositorioPessoa implements IRepositorioPessoa{
 	}
 
 	@Override
-	public Pessoa procurar(int matricula) {
+	public Pessoa procurar(String matricula) {
 		Pessoa pessoaP = null;
 		if(this.pessoa.size() > 0){
 			for(int i = 0; i < this.pessoa.size(); i++){
-				if(matricula == this.pessoa.get(i).getMatricula()){
+				if(matricula.equals(this.pessoa.get(i).getMatricula())){
 					pessoaP = this.pessoa.get(i);
 				}
 			}

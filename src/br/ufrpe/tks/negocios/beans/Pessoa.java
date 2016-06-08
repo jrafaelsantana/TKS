@@ -4,10 +4,10 @@ public class Pessoa {
 	
 	private String nome;
 	private char sexo;
-	private int matricula;
-	private int senha;
+	private String matricula;
+	private String senha;
 	
-	public Pessoa(String nome, char sexo, int matricula, int senha){
+	public Pessoa(String nome, char sexo, String matricula, String senha){
 		this.nome = nome;
 		this.sexo = sexo;
 		this.matricula = matricula;
@@ -30,19 +30,19 @@ public class Pessoa {
 		this.sexo = sexo;
 	}
 	
-	public int getMatricula() {
+	public String getMatricula() {
 		return matricula;
 	}
 	
-	public void setMatricula(int matricula){
+	public void setMatricula(String matricula){
 		this.matricula = matricula;
 	}
 	
-	public void setSenha(int novaSenha){
+	public void setSenha(String novaSenha){
 		this.senha = novaSenha;
 	}
 	
-	public int getSenha(){
+	public String getSenha(){
 		return this.senha;
 	}
 	

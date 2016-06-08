@@ -7,7 +7,7 @@ public class Funcionario extends Pessoa {
 	private boolean motorista;
 	private EscalaNormal escala;
 	
-	public Funcionario(String nome, String cargo, char sexo, int matricula, boolean motorista, int senha){
+	public Funcionario(String nome, String cargo, char sexo, String matricula, boolean motorista, String senha){
 		super(nome, sexo, matricula, senha);
 		this.cargo = cargo;
 		this.motorista = motorista;

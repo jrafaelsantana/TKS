@@ -2,23 +2,23 @@ package br.ufrpe.tks.negocios.beans;
 
 public class Selecionado {
 	
-	private int matricula;
+	private String matricula;
 	private int [] diasSorteados;
 	private int escala;
 	private int qtdExtras;
 	
 	
-	public Selecionado(int matricula, int escala, int qtdExtras){
+	public Selecionado(String matricula, int escala, int qtdExtras){
 		this.diasSorteados = new int[qtdExtras];
 		this.matricula = matricula;
 		this.escala = escala;
 	}
 
-	public int getMatricula() {
+	public String getMatricula() {
 		return matricula;
 	}
 
-	public void setMatricula(int matricula) {
+	public void setMatricula(String matricula) {
 		this.matricula = matricula;
 	}
 

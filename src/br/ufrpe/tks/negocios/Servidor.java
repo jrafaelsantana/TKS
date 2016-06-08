@@ -32,19 +32,19 @@ public class Servidor {
 		}
 	}
 	
-	public void cadastrarFuncionario(String nome, String cargo, char sexo, int matricula, boolean motorista, int senha) throws UsuarioJaCadastradoException{
+	public void cadastrarFuncionario(String nome, String cargo, char sexo, String matricula, boolean motorista, String senha) throws UsuarioJaCadastradoException{
 		pessoa.cadastrarFuncionario(nome, cargo, sexo, matricula, motorista, senha);
 	}
 	
-	public void cadastrarAdministrador(String nome, char sexo, int matricula, int senha) throws UsuarioJaCadastradoException{
+	public void cadastrarAdministrador(String nome, char sexo, String matricula, String senha) throws UsuarioJaCadastradoException{
 		pessoa.cadastrarAdministrador(nome, sexo, matricula, senha);
 	}
 	
-	public Pessoa procurar(int matricula) throws UsuarioNaoEncontradoException{
+	public Pessoa procurar(String matricula) throws UsuarioNaoEncontradoException{
 		return pessoa.procurar(matricula);
 	}
 	
-	public void remover(int matricula) throws UsuarioNaoEncontradoException{
+	public void remover(String matricula) throws UsuarioNaoEncontradoException{
 		pessoa.remover(matricula);
 	}
 	

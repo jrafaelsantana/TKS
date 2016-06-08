@@ -2,15 +2,15 @@ package br.ufrpe.tks.negocios.beans;
 
 public class Administrador extends Pessoa{
 	
-	public Administrador(String nome, char sexo, int matricula, int senha){
+	public Administrador(String nome, char sexo, String matricula, String senha){
 		super(nome, sexo, matricula, senha);
 	}
 	
-	public void setMatricula(int matricula){
+	public void setMatricula(String matricula){
 		super.setMatricula(matricula);
 	}
 	
-	public int getMatricula(){
+	public String getMatricula(){
 		return super.getMatricula();
 	}
 	

@@ -1,12 +1,12 @@
 package br.ufrpe.tks.exceptions;
 
 public class UsuarioNaoEncontradoException extends Exception{
-	private int matricula;
-	public UsuarioNaoEncontradoException(int matricula){
+	private String matricula;
+	public UsuarioNaoEncontradoException(String matricula){
 		super("O usuário com matricula: " + matricula + " não foi encontrado");
 		this.matricula = matricula;
 	}
-	public int getMatricula(){
+	public String getMatricula(){
 		return matricula;
 	}
 }

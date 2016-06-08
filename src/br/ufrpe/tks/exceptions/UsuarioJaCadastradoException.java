@@ -1,12 +1,12 @@
 package br.ufrpe.tks.exceptions;
 
 public class UsuarioJaCadastradoException extends Exception{
-	private int matricula;
-	public UsuarioJaCadastradoException(int matricula){
+	private String matricula;
+	public UsuarioJaCadastradoException(String matricula){
 		super("O usuário com matrícula: " + matricula + " já está cadastrado.");
 		this.matricula = matricula;
 	}
-	public int getMatricula(){
+	public String getMatricula(){
 		return matricula;
 	}
 }

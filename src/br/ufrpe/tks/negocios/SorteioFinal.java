@@ -85,7 +85,7 @@ public class SorteioFinal {
 	public void realizarSorteio(EscalaMes x) throws UsuarioNaoEncontradoException{
 		
 		Pessoa [] pessoaTemp = new Pessoa[x.getQtdEscolhidos()];//array de pessoas
-		int [] matricula = new int [x.getQtdEscolhidos()];//array de matriculas
+		String [] matricula = new String [x.getQtdEscolhidos()];//array de matriculas
 		Selecionado [] selecionadoTemp = new Selecionado [x.getQtdEscolhidos()];//array de selecionados
 		for(int count = 0; count < x.getQtdEscolhidos(); count++){//CARREGUEI OS ESCOLHIDOS NUM ARRAY DE SELECIONADO.
 			selecionadoTemp[count] = x.getEscolhidos(count);

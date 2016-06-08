@@ -9,7 +9,7 @@ public interface IRepositorioPessoa {
 	
 	void remover(Pessoa p);
 	
-	Pessoa procurar(int matricula);
+	Pessoa procurar(String matricula);
 	
 	ArrayList<Pessoa> getUsuarios();
 }
