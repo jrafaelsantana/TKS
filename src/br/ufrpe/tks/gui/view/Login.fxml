@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane minHeight="600.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufrpe.tks.gui.model.LoginController">
+   <children>
+      <TextField fx:id="campoMatricula" layoutX="312.0" layoutY="308.0" prefHeight="25.0" prefWidth="173.0" promptText="Matricula" />
+      <PasswordField fx:id="campoSenha" layoutX="312.0" layoutY="341.0" prefHeight="25.0" prefWidth="173.0" promptText="Senha" />
+      <Button fx:id="btEntrar" layoutX="376.0" layoutY="390.0" mnemonicParsing="false" onAction="#handleLogin" text="Entrar" />
+      <Label fx:id="lbErro" alignment="CENTER" layoutX="298.0" layoutY="282.0" prefHeight="17.0" prefWidth="205.0" textFill="RED" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="301.0" layoutY="186.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../res/tks.png" />
+         </image>
+      </ImageView>
+   </children>
+   <cursor>
+      <Cursor fx:constant="DEFAULT" />
+   </cursor>
+</AnchorPane>

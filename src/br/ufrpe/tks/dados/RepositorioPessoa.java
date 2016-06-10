@@ -2,12 +2,18 @@ package br.ufrpe.tks.dados;
 
 import java.util.ArrayList;
 
+import br.ufrpe.tks.negocios.beans.Administrador;
+import br.ufrpe.tks.negocios.beans.Funcionario;
 import br.ufrpe.tks.negocios.beans.Pessoa;
 
 public class RepositorioPessoa implements IRepositorioPessoa{
 	
 	private static RepositorioPessoa instance;
 	private ArrayList<Pessoa> pessoa;
+	
+	Pessoa pessoa1 = new Funcionario("José Rafael", "Cabo", 'M', "12345", false, "1415");
+	Pessoa pessoa2 = new Funcionario("Éder Lucena", "Major", 'F', "98765", false, "123");
+	Pessoa administrador = new Administrador("Administrador", 'M', "Admin", "Admin");
 	
 	public static RepositorioPessoa getInstance(){
 		if (instance == null) {
@@ -18,6 +24,10 @@ public class RepositorioPessoa implements IRepositorioPessoa{
 	
 	private RepositorioPessoa(){
 		this.pessoa = new ArrayList<Pessoa>();
+		
+		pessoa.add(pessoa1);
+		pessoa.add(pessoa2);
+		pessoa.add(administrador);
 	}
 
 	@Override
