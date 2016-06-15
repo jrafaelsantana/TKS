@@ -7,6 +7,7 @@ import br.ufrpe.tks.exceptions.SenhaIncorretaException;
 import br.ufrpe.tks.exceptions.UsuarioNaoEncontradoException;
 import br.ufrpe.tks.gui.MainApp;
 import br.ufrpe.tks.negocios.CadastroPessoa;
+import br.ufrpe.tks.negocios.beans.Administrador;
 import br.ufrpe.tks.negocios.beans.Funcionario;
 import br.ufrpe.tks.negocios.beans.Pessoa;
 import javafx.fxml.FXML;
@@ -53,7 +54,11 @@ public class LoginController {
 			try {
 				cadastroPessoa.login(campoMatricula.getText(), campoSenha.getText());
 				logado = cadastroPessoa.procurar(campoMatricula.getText());
-				mainApp.showFuncionario((Funcionario) logado);
+				if(logado instanceof Funcionario){
+					mainApp.showFuncionario((Funcionario) logado);
+				}else if(logado instanceof Administrador){
+					mainApp.showAdministrador((Administrador) logado);
+				}	
 			} catch (LoginIncorretoException e) {
 				lbErro.setText(e.getMessage());
 			} catch (SenhaIncorretaException e) {

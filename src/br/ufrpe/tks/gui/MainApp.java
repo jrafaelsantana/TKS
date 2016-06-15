@@ -2,6 +2,7 @@ package br.ufrpe.tks.gui;
 
 import java.io.IOException;
 
+import br.ufrpe.tks.gui.model.AdministradorController;
 import br.ufrpe.tks.gui.model.FuncionarioController;
 import br.ufrpe.tks.gui.model.LoginController;
 import br.ufrpe.tks.negocios.beans.Administrador;
@@ -72,6 +73,22 @@ public class MainApp extends Application {
 
 			rootLayout.setCenter(funcionario);
 			FuncionarioController controller = loader.getController();
+			controller.setMainApp(this);
+			
+			controller.setPessoa(func);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void showAdministrador(Administrador func){
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/Administrador.fxml"));
+			AnchorPane administrador = (AnchorPane) loader.load();
+
+			rootLayout.setCenter(administrador);
+			AdministradorController controller = loader.getController();
 			controller.setMainApp(this);
 			
 			controller.setPessoa(func);

@@ -6,6 +6,7 @@ public class Funcionario extends Pessoa {
 	private String cargo;
 	private boolean motorista;
 	private EscalaNormal escala;
+	private boolean transferido;
 	
 	public Funcionario(String nome, String cargo, char sexo, String matricula, boolean motorista, String senha){
 		super(nome, sexo, matricula, senha);
@@ -49,6 +50,14 @@ public class Funcionario extends Pessoa {
 		}
 		
 		return resultado;
+	}
+	
+	public boolean isTransferido(){
+		return transferido;
+	}
+	
+	public void setTransferido(boolean x){
+		this.transferido = x;
 	}
 	
 	public String toString(){

@@ -89,16 +89,20 @@ public class FuncionarioController {
 	@FXML
 	private void handleAtualizar() {
 		try {
-			logado.setNome(campoNome.getText());
-			logado.setSenha(campoSenha.getText());
-			logado.setSexo((char) selectSexo.getValue());
-			if (selectMotorista.getValue() == "Sim") {
-				logado.setMotorista(true);
-			} else if (selectMotorista.getValue() == "Não") {
-				logado.setMotorista(false);
+			if(!campoNome.getText().equals("") && !campoSenha.getText().equals("")){
+				logado.setNome(campoNome.getText());
+				logado.setSenha(campoSenha.getText());
+				logado.setSexo((char) selectSexo.getValue());
+				if (selectMotorista.getValue() == "Sim") {
+					logado.setMotorista(true);
+				} else if (selectMotorista.getValue() == "Não") {
+					logado.setMotorista(false);
+				}
+				logado.setCargo((String) selectCargo.getValue());
+				lbAviso.setText("Dados atualizados.");
+			}else{
+				lbAviso.setText("Erro. Algum campo não foi preenchido");
 			}
-			logado.setCargo((String) selectCargo.getValue());
-			lbAviso.setText("Dados atualizados.");
 		} catch (Exception e) {
 			lbAviso.setText("Ocorreu um erro. Tente novamente.");
 			e.printStackTrace();
@@ -113,7 +117,5 @@ public class FuncionarioController {
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 	}
-	/*
-	 * private boolean validaAtualizacao(){ String erro = ""; }
-	 */
+	
 }
