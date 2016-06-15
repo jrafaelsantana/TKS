@@ -191,7 +191,7 @@ public class EscalaMes {
 											var++;
 										}
 									}
-									if(var <= dif1){
+									if(var <= dif1 || var > dif1 & dif2 - var >= 0){
 										temp.setTransferido(true);
 										x[count].setEscala(1);
 										esc1 = esc1 + var;
@@ -227,7 +227,7 @@ public class EscalaMes {
 											var++;
 										}
 									}
-									if(var <= dif1){
+									if(var <= dif1 || var > dif1 & dif4 - var >= 0){
 										temp.setTransferido(true);
 										x[count].setEscala(1);
 										esc1 = esc1 + var;
@@ -268,7 +268,7 @@ public class EscalaMes {
 											var++;
 										}
 									}
-									if(var <= dif3){
+									if(var <= dif3 || var > dif3 & dif2 - var >= 0){
 										temp.setTransferido(true);
 										x[count].setEscala(3);
 										esc3 = esc3 + var;
@@ -304,7 +304,7 @@ public class EscalaMes {
 											var++;
 										}
 									}
-									if(var <= dif3){
+									if(var <= dif3 || var > dif3 & dif4 - var >= 0){
 										temp.setTransferido(true);
 										x[count].setEscala(3);
 										esc3 = esc3 + var;
@@ -345,7 +345,7 @@ public class EscalaMes {
 											var++;
 										}
 									}
-									if(var <= dif2){
+									if(var <= dif2 || var > dif2 & dif1 - var >= 0){
 										temp.setTransferido(true);
 										x[count].setEscala(2);
 										esc2 = esc2 + var;
@@ -381,7 +381,7 @@ public class EscalaMes {
 											var++;
 										}
 									}
-									if(var <= dif2){
+									if(var <= dif2 || var > dif2 & dif3 - var >= 0){
 										temp.setTransferido(true);
 										x[count].setEscala(2);
 										esc2 = esc2 + var;
@@ -422,7 +422,7 @@ public class EscalaMes {
 											var++;
 										}
 									}
-									if(var <= dif4){
+									if(var <= dif4 || var > dif4 & dif1 - var >= 0){
 										temp.setTransferido(true);
 										x[count].setEscala(4);
 										esc4 = esc4 + var;
@@ -458,7 +458,7 @@ public class EscalaMes {
 											var++;
 										}
 									}
-									if(var <= dif4){
+									if(var <= dif4 || var > dif4 & dif3 - var >= 0){
 										temp.setTransferido(true);
 										x[count].setEscala(4);
 										esc4 = esc4 + var;
@@ -555,6 +555,67 @@ public class EscalaMes {
 			}
 		}
 		
+		
+		//---------------------------------------------------------------------------------------
+		do{
+			if(esc0 != 0){
+				if(esc1 < 14){
+					for(int i = 0; i < this.qtdEscolhidos; i++){
+						temp = (Funcionario) Servidor.getInstance().procurar(x[i].getMatricula());
+						if(x[i].getEscala() == 0 & temp.getSexo() == 'F'){
+							x[i].setEscala(1);
+							esc0 = esc0 - x[i].getQtdExtras();
+							esc1 = esc1 + x[i].getQtdExtras();
+							break;
+						}
+					}
+				}
+				if(esc2 < 14){
+					for(int i = 0; i < this.qtdEscolhidos; i++){
+						temp = (Funcionario) Servidor.getInstance().procurar(x[i].getMatricula());
+						if(x[i].getEscala() == 0 & temp.getSexo() == 'F'){
+							x[i].setEscala(2);
+							esc0 -= x[i].getQtdExtras();
+							esc2 += x[i].getQtdExtras();
+							break;
+						}
+					}
+				}
+				if(esc3 < 16){System.out.println("IF ESC 3");
+					for(int i = 0; i < this.qtdEscolhidos; i++){
+						temp = (Funcionario) Servidor.getInstance().procurar(x[i].getMatricula());
+						if(x[i].getEscala() == 0 & temp.getSexo() == 'F'){
+							x[i].setEscala(3);
+							esc0 -= x[i].getQtdExtras();
+							esc3 += x[i].getQtdExtras();
+							break;
+						}
+					}
+				}
+				if(esc4 < 16){
+					for(int i = 0; i < this.qtdEscolhidos; i++){
+						temp = (Funcionario) Servidor.getInstance().procurar(x[i].getMatricula());
+						if(x[i].getEscala() == 0 & temp.getSexo() == 'F'){
+							x[i].setEscala(4);
+							esc0 -= x[i].getQtdExtras();
+							esc4 += x[i].getQtdExtras();
+							break;
+						}
+					}
+				}
+				
+				if(esc1 < 14 & esc2 < 14 & esc3 < 16 & esc4 < 16){
+					esc0 = 0;
+					System.out.println("IF ESC 0 recebendo 0");
+				}
+				System.out.println(esc1 + " -1- " + esc2 + " -2- " + esc3 + " -3- " + esc4 + " -4- " + esc0 + " -0-");
+			}
+		}while(esc0 != 0);
+		System.out.println("Cheguei ao final");
+		//OK AKI -------------------------------------------------------------------------------
+			
+		//---------------------------------------------------------------------------------------
+			
 		do{
 			
 		if(esc1 > 14){
