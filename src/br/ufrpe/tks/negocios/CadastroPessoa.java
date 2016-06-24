@@ -38,6 +38,7 @@ public class CadastroPessoa {
 		if(this.pessoas.procurar(matricula) == null){
 			Pessoa funcionario = new Administrador(nome, sexo, matricula, senha);
 			this.pessoas.cadastrar(funcionario);
+			this.pessoas.salvarbd();
 		}else{
 			UsuarioJaCadastradoException usr = new UsuarioJaCadastradoException(matricula);
 			throw usr;
@@ -48,6 +49,7 @@ public class CadastroPessoa {
 		if(f != null){
 			if(this.pessoas.procurar(f.getMatricula()) == null){
 				this.pessoas.cadastrar(f);
+				this.pessoas.salvarbd();
 			}else{
 				UsuarioJaCadastradoException usr = new UsuarioJaCadastradoException(f.getMatricula());
 				throw usr;
@@ -62,6 +64,7 @@ public class CadastroPessoa {
 		if(a != null){
 			if(this.pessoas.procurar(a.getMatricula()) == null){
 				this.pessoas.cadastrar(a);
+				this.pessoas.salvarbd();
 			}else{
 				UsuarioJaCadastradoException usr = new UsuarioJaCadastradoException(a.getMatricula());
 				throw usr;
@@ -76,6 +79,7 @@ public class CadastroPessoa {
 		Pessoa pessoa = this.pessoas.procurar(matricula);
 		if(pessoa != null){
 			this.pessoas.remover(pessoa);
+			this.pessoas.salvarbd();
 		}else{
 			UsuarioNaoEncontradoException usr = new UsuarioNaoEncontradoException(matricula);
 			throw usr;

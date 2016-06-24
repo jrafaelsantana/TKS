@@ -1,10 +1,12 @@
 package br.ufrpe.tks.negocios.beans;
 
+import java.io.Serializable;
+
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class Pessoa {
+public class Pessoa implements Serializable{
 
 	private String nome;
 	private char sexo;
@@ -63,6 +65,14 @@ public class Pessoa {
 	public StringProperty nomeProperty() {
 		StringProperty nome = new SimpleStringProperty(this.nome);
 		return nome;
+	}
+	
+	public boolean equals(Pessoa pessoa2){
+		boolean resultado = false;
+		if(pessoa2.matricula == this.matricula){
+			resultado = true;
+		}
+		return resultado;
 	}
 
 }

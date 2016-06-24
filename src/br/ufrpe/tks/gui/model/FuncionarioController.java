@@ -44,6 +44,10 @@ public class FuncionarioController {
 	private Button btAtualizar;
 	@FXML
 	private Button btLogout;
+	@FXML
+	private Button btConsultarDias;
+	@FXML
+	private Button btEscalaCompleta;
 
 	private Funcionario logado;
 	private Stage funcionarioStage;
@@ -99,6 +103,7 @@ public class FuncionarioController {
 					logado.setMotorista(false);
 				}
 				logado.setCargo((String) selectCargo.getValue());
+				Servidor.getInstance().salvardb();
 				lbAviso.setText("Dados atualizados.");
 			}else{
 				lbAviso.setText("Erro. Algum campo não foi preenchido");
@@ -107,6 +112,16 @@ public class FuncionarioController {
 			lbAviso.setText("Ocorreu um erro. Tente novamente.");
 			e.printStackTrace();
 		}
+	}
+	
+	@FXML
+	private void handleConsultarDias() {
+		mainApp.showConsultarDias(logado);
+	}
+
+	@FXML
+	private void handleEscalaCompleta() {
+		mainApp.showConsultarEscalaCompleta(logado);
 	}
 
 	@FXML

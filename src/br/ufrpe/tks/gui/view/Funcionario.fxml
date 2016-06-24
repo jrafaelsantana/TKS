@@ -60,7 +60,22 @@
         <tabs>
           <Tab text="Escala">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <GridPane layoutX="145.0" layoutY="171.0" prefHeight="110.0" prefWidth="511.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Button fx:id="btConsultarDias" mnemonicParsing="false" onAction="#handleConsultarDias" prefHeight="50.0" prefWidth="256.0" text="Consultar dias" />
+                              <Button fx:id="btEscalaCompleta" mnemonicParsing="false" onAction="#handleEscalaCompleta" prefHeight="50.0" prefWidth="255.0" text="Consultar escala completa" GridPane.columnIndex="1" />
+                           </children>
+                        </GridPane>
+                     </children></AnchorPane>
             </content>
           </Tab>
           <Tab text="Editar dados">

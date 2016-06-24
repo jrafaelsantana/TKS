@@ -5,6 +5,7 @@ import br.ufrpe.tks.dados.RepositorioPessoa;
 import br.ufrpe.tks.exceptions.UsuarioNaoEncontradoException;
 import br.ufrpe.tks.gui.MainApp;
 import br.ufrpe.tks.negocios.CadastroPessoa;
+import br.ufrpe.tks.negocios.Servidor;
 import br.ufrpe.tks.negocios.beans.Administrador;
 import br.ufrpe.tks.negocios.beans.Funcionario;
 import br.ufrpe.tks.negocios.beans.Pessoa;
@@ -46,15 +47,24 @@ public class AdministradorController {
 	@FXML
 	private Button btEditarUsuario;
 	@FXML
+	private Button btApagarUsuario;
+	@FXML
 	private Label lbAviso2;
-	
+	@FXML
+	private Label lbAviso3;
 
 	@FXML
 	private TableView<Pessoa> tableEditar;
 	@FXML
+	private TableView<Pessoa> tableApagar;
+	@FXML
 	private TableColumn<Pessoa, String> colunaMatricula;
 	@FXML
 	private TableColumn<Pessoa, String> colunaNome;
+	@FXML
+	private TableColumn<Pessoa, String> colunaMatricula2;
+	@FXML
+	private TableColumn<Pessoa, String> colunaNome2;
 
 	private Administrador logado;
 	private Stage administradorStage;
@@ -67,6 +77,8 @@ public class AdministradorController {
 	private void initialize() {
 		colunaMatricula.setCellValueFactory(cellData -> cellData.getValue().matriculaProperty());
 		colunaNome.setCellValueFactory(cellData -> cellData.getValue().nomeProperty());
+		colunaMatricula2.setCellValueFactory(cellData -> cellData.getValue().matriculaProperty());
+		colunaNome2.setCellValueFactory(cellData -> cellData.getValue().nomeProperty());
 	}
 
 	public void setAdministradorStage(Stage administradorStage) {
@@ -106,7 +118,7 @@ public class AdministradorController {
 									(char) selectSexo.getValue(), campoMatricula.getText(), motorista,
 									campoSenha.getText());
 							lbAviso.setText("Funcionário cadastrado");
-							tableEditar.setItems(getpersonData());
+							this.atualizarTabelas();
 						} catch (Exception x) {
 							lbAviso.setText("Ocorreu um erro.");
 						}
@@ -115,7 +127,7 @@ public class AdministradorController {
 							cadastroPessoa.cadastrarAdministrador(campoNome.getText(), (char) selectSexo.getValue(),
 									campoMatricula.getText(), campoSenha.getText());
 							lbAviso.setText("Administrador cadastrado");
-							tableEditar.setItems(getpersonData());
+							this.atualizarTabelas();
 						} catch (Exception x) {
 							lbAviso.setText("Ocorreu um erro.");
 						}
@@ -140,32 +152,59 @@ public class AdministradorController {
 			selectMotorista.setDisable(false);
 		}
 	}
-	
+
 	@FXML
 	private void handleEditarUsuario() {
-	    Pessoa selectedPerson = tableEditar.getSelectionModel().getSelectedItem();
-	    if (selectedPerson != null) {
-	        boolean okClicked = mainApp.showEditarPessoaDialog(selectedPerson);
-	        if (okClicked) {
-	        	tableEditar.setItems(this.getpersonData());
-	        }
+		Pessoa selectedPerson = tableEditar.getSelectionModel().getSelectedItem();
+		if (selectedPerson != null) {
+			boolean okClicked = mainApp.showEditarPessoaDialog(selectedPerson);
+			if (okClicked) {
+				this.atualizarTabelas();
+			}
 
-	    } else {
-	        lbAviso2.setText("Nenhum usuário selecionado");
-	    }
+		} else {
+			lbAviso2.setText("Nenhum usuário selecionado");
+		}
+	}
+
+	@FXML
+	private void handleApagarUsuario() {
+		Pessoa selectedPerson = tableApagar.getSelectionModel().getSelectedItem();
+		if (selectedPerson.equals(logado)) {
+			lbAviso3.setText("Impossível apagar esse usuário");
+		} else {
+			if (selectedPerson != null) {
+				try {
+					lbAviso3.setText("");
+					Servidor.getInstance().remover(selectedPerson.getMatricula());
+					this.atualizarTabelas();
+				} catch (UsuarioNaoEncontradoException e) {
+					lbAviso3.setText("Erro");
+					e.printStackTrace();
+				}
+
+			} else {
+				lbAviso3.setText("Nenhum usuário selecionado");
+			}
+		}
 	}
 
 	@FXML
 	private void handleLogout() {
 		mainApp.showLogin();
 	}
-	
-	private ObservableList<Pessoa> getpersonData(){
+
+	public void atualizarTabelas() {
+		tableApagar.setItems(this.getpersonData());
+		tableEditar.setItems(getpersonData());
+	}
+
+	private ObservableList<Pessoa> getpersonData() {
 		return FXCollections.observableArrayList(repositorioPessoa.getUsuarios());
 	}
-	
+
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
-		tableEditar.setItems(getpersonData());
+		this.atualizarTabelas();
 	}
 }

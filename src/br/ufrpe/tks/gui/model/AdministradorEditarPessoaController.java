@@ -1,5 +1,6 @@
 package br.ufrpe.tks.gui.model;
 
+import br.ufrpe.tks.negocios.Servidor;
 import br.ufrpe.tks.negocios.beans.Administrador;
 import br.ufrpe.tks.negocios.beans.Funcionario;
 import br.ufrpe.tks.negocios.beans.Pessoa;
@@ -82,18 +83,19 @@ public class AdministradorEditarPessoaController {
 				pessoa.setNome(campoNomeEditar.getText());
 				pessoa.setSenha(campoSenhaEditar.getText());
 				pessoa.setSexo((char) selectSexoEditar.getValue());
-				
-				if(pessoa instanceof Funcionario){
+
+				if (pessoa instanceof Funcionario) {
 					if (selectMotoristaEditar.getValue() == "Sim") {
 						((Funcionario) pessoa).setMotorista(true);
 					} else if (selectMotoristaEditar.getValue() == "Não") {
 						((Funcionario) pessoa).setMotorista(false);
 					}
 					((Funcionario) pessoa).setCargo((String) selectCargoEditar.getValue());
-				}else if(pessoa instanceof Administrador){
-					
+				} else if (pessoa instanceof Administrador) {
+
 				}
 				lbAvisoEditar.setText("Dados atualizados.");
+				Servidor.getInstance().salvardb();
 			} else {
 				lbAvisoEditar.setText("Erro. Algum campo não foi preenchido");
 			}

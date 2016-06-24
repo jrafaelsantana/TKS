@@ -12,4 +12,6 @@ public interface IRepositorioPessoa {
 	Pessoa procurar(String matricula);
 	
 	ArrayList<Pessoa> getUsuarios();
+	
+	void salvarbd();
 }

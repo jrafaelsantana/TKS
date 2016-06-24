@@ -127,7 +127,18 @@
                               </Tab>
                               <Tab text="Apagar">
                                  <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <TableView fx:id="tableApagar" prefHeight="363.0" prefWidth="801.0">
+                                            <columns>
+                                              <TableColumn fx:id="colunaMatricula2" prefWidth="141.0" text="Matricula" />
+                                              <TableColumn fx:id="colunaNome2" prefWidth="658.0" text="Nome" />
+                                            </columns>
+                                          </TableView>
+                                          <Button fx:id="btApagarUsuario" layoutX="695.0" layoutY="382.0" mnemonicParsing="false" onAction="#handleApagarUsuario" text="Apagar Usuario" />
+                                          <Label fx:id="lbAviso3" layoutX="14.0" layoutY="386.0" prefHeight="17.0" prefWidth="247.0" textFill="RED" />
+                                       </children>
+                                    </AnchorPane>
                                  </content>
                               </Tab>
                            </tabs>

@@ -6,6 +6,8 @@ import br.ufrpe.tks.dados.IRepositorioPessoa;
 import br.ufrpe.tks.dados.RepositorioPessoa;
 import br.ufrpe.tks.gui.model.AdministradorController;
 import br.ufrpe.tks.gui.model.AdministradorEditarPessoaController;
+import br.ufrpe.tks.gui.model.ConsultarEscalaCompletaController;
+import br.ufrpe.tks.gui.model.ConsultarEscalaDiasController;
 import br.ufrpe.tks.gui.model.FuncionarioController;
 import br.ufrpe.tks.gui.model.LoginController;
 import br.ufrpe.tks.negocios.CadastroPessoa;
@@ -34,6 +36,9 @@ public class MainApp extends Application {
 		this.primaryStage.setTitle("TKS");
 
 		initRootLayout();
+		
+		primaryStage.setResizable(false);
+		primaryStage.setWidth(800);
 
 		if (logado == null) {
 			showLogin();
@@ -97,7 +102,7 @@ public class MainApp extends Application {
 			rootLayout.setCenter(administrador);
 			AdministradorController controller = loader.getController();
 			controller.setMainApp(this);
-
+			
 			controller.setPessoa(func);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -113,6 +118,7 @@ public class MainApp extends Application {
 
 			// Cria o palco dialogStage.
 			Stage dialogStage = new Stage();
+			dialogStage.setResizable(false);
 			dialogStage.setTitle("Editar Pessoa");
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.initOwner(primaryStage);
@@ -131,6 +137,63 @@ public class MainApp extends Application {
 		} catch (IOException e) {
 			e.printStackTrace();
 			return false;
+		}
+	}
+	
+	public void showConsultarDias(Pessoa pessoa) {
+		try {
+			// Carrega o arquivo fxml e cria um novo stage para a janela popup.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/FuncionarioEscalaIndividual.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// Cria o palco dialogStage.
+			Stage dialogStage = new Stage();
+			dialogStage.setResizable(false);
+			dialogStage.setTitle("Escala Individual");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			// Define a pessoa no controller.
+			ConsultarEscalaDiasController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setPerson(pessoa);
+
+			// Mostra a janela e espera até o usuário fechar.
+			dialogStage.showAndWait();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void showConsultarEscalaCompleta(Pessoa pessoa) {
+		try {
+			// Carrega o arquivo fxml e cria um novo stage para a janela popup.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("view/FuncionarioEscalaCompleta.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// Cria o palco dialogStage.
+			Stage dialogStage = new Stage();
+			dialogStage.setResizable(false);
+			dialogStage.setTitle("Consultar escala completa");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			// Define a pessoa no controller.
+			ConsultarEscalaCompletaController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setPerson(pessoa);
+
+			// Mostra a janela e espera até o usuário fechar.
+			dialogStage.showAndWait();
+
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
