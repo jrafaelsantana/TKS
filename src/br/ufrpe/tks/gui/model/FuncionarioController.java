@@ -48,6 +48,14 @@ public class FuncionarioController {
 	private Button btConsultarDias;
 	@FXML
 	private Button btEscalaCompleta;
+	@FXML
+	private ComboBox selectEscala;
+	@FXML
+	private TextField campoQtdServicos;
+	@FXML
+	private TextField campoDiasPreferidos;
+	@FXML
+	private Button btSalvarEscala;
 
 	private Funcionario logado;
 	private Stage funcionarioStage;
@@ -88,6 +96,7 @@ public class FuncionarioController {
 		selectMotorista.getItems().addAll("Sim", "Não");
 		selectCargo.getItems().addAll("Soldado", "Cabo", "Sargento", "Sub-tenente", "Tenente capitão", "Major", "Tenente Coronel", "Coronel");
 		selectCargo.setValue(logado.getCargo());
+		
 	}
 
 	@FXML
@@ -122,6 +131,11 @@ public class FuncionarioController {
 	@FXML
 	private void handleEscalaCompleta() {
 		mainApp.showConsultarEscalaCompleta(logado);
+	}
+	
+	@FXML
+	private void handleEscala(){
+		
 	}
 
 	@FXML

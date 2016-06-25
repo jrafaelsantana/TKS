@@ -31,6 +31,7 @@ public class Servidor {
 			pessoa.cadastrarFuncionario((Funcionario) p);
 		}
 		Servidor.getInstance().salvardb();
+		
 	}
 	
 	public void cadastrarFuncionario(String nome, String cargo, char sexo, String matricula, boolean motorista, String senha) throws UsuarioJaCadastradoException{
@@ -55,6 +56,8 @@ public class Servidor {
 	public ArrayList<Pessoa> getPessoas() {
 	    return this.pessoa.getPessoas();
 	}
+	
+	
 	
 	public void salvardb(){
 		RepositorioPessoa.getInstance().salvarbd();

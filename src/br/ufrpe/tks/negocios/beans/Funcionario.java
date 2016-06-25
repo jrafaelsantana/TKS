@@ -18,6 +18,11 @@ public class Funcionario extends Pessoa {
 		return this.escala.getEscala();
 	}
 	
+	public void atualizaEscala(int escala, int extrasQtd){
+		EscalaNormal escalaAtualizada = new EscalaNormal(escala, extrasQtd);
+		this.escala = escalaAtualizada;
+	}
+	
 	public void setEscala(int x){
 		this.escala.setEscala(x);
 	}
