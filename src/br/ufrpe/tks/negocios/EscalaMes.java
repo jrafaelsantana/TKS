@@ -1,14 +1,21 @@
 package br.ufrpe.tks.negocios;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+import br.ufrpe.tks.dados.IRepositorioPessoa;
+import br.ufrpe.tks.dados.RepositorioPessoa;
+import br.ufrpe.tks.exceptions.UsuarioJaCadastradoException;
 import br.ufrpe.tks.exceptions.UsuarioNaoEncontradoException;
 import br.ufrpe.tks.negocios.beans.Funcionario;
 import br.ufrpe.tks.negocios.beans.Pessoa;
 import br.ufrpe.tks.negocios.beans.Selecionado;
 
-public class EscalaMes {
+public class EscalaMes implements Serializable{
+	IRepositorioPessoa repositorioPessoa = RepositorioPessoa.getInstance();
+	CadastroPessoa cadastroPessoa = new CadastroPessoa(repositorioPessoa);
+	
 	private LocalDate  mesAno;
 	private Selecionado [] escolhidos;
 	private int qtdEscolhidos;
@@ -171,14 +178,15 @@ public class EscalaMes {
 		//OK AKI -------------------------------------------------------------------------------
 		
 		//COMEÇO DE DISTRIBUIÇAO DE MOTORISTAS DE ESCALA FIXA PARA ESCALAS CONGRUENTES.
-		
+
 		int var = 0;//quantidade de dias que ainda faltam ser sorteados.
 		if(esc1 < 14){//se falta mot em esc1
 			int dif1 = 0;
-			dif1 = 14 - esc1;//dif1 é o que falta em esc1
+			dif1 = (14 - esc1);//dif1 é o que falta em esc1
 			if(esc2 > 14){//se sobra mot em esc2
+
 				int dif2 = 0;
-				dif2 = esc2 - 14;//dif2 é o que sobra em esc2
+				dif2 = (esc2 - 14);//dif2 é o que sobra em esc2
 				do{
 				if(dif2 >= dif1){//se o que sobra é maior ou igual ao que falta... transfere.
 					for(int count = 0; count < x.length; count++){
@@ -191,13 +199,13 @@ public class EscalaMes {
 											var++;
 										}
 									}
-									if(var <= dif1 || var > dif1 & dif2 - var >= 0){
+									if((var <= dif1 & dif1 > 0) || (var > dif1 & dif1 > 0) & (dif2 - var) >= 0){
 										temp.setTransferido(true);
 										x[count].setEscala(1);
-										esc1 = esc1 + var;
-										esc2 = esc2 - var;
-										dif1 = dif1 - var;
-										dif2 = dif2 - var;
+										esc1 = (esc1 + var);
+										esc2 = (esc2 - var);
+										dif1 = (dif1 - var);
+										dif2 = (dif2 - var);
 										var = 0;
 									}
 									else{
@@ -209,12 +217,12 @@ public class EscalaMes {
 						}
 					}
 				}
-			}while(esc1 < 14 || esc2 > 14);
+			}while(esc1 < 14 && esc2 > 14);
 			}
 			//-------------------------------------------------------------------------
 			if(esc4 > 16){//se sobra mot em esc4
 				int dif4 = 0;
-				dif4 = esc4 - 16;//dif4 é o que sobra em esc4
+				dif4 = (esc4 - 16);//dif4 é o que sobra em esc4
 				do{
 				if(dif4 >= dif1){//se o que sobra é maior ou igual ao que falta... transfere.
 					for(int count = 0; count < x.length; count++){
@@ -227,13 +235,13 @@ public class EscalaMes {
 											var++;
 										}
 									}
-									if(var <= dif1 || var > dif1 & dif4 - var >= 0){
+									if((var <= dif1 & dif1 > 0) || (var > dif1 & dif1 > 0) && (dif4 - var) >= 0){
 										temp.setTransferido(true);
 										x[count].setEscala(1);
-										esc1 = esc1 + var;
-										esc4 = esc4 - var;
-										dif1 = dif1 - var;
-										dif4 = dif4 - var;
+										esc1 = (esc1 + var);
+										esc4 = (esc4 - var);
+										dif1 = (dif1 - var);
+										dif4 = (dif4 - var);
 										var = 0;
 									}
 									else{
@@ -245,17 +253,17 @@ public class EscalaMes {
 						}
 					}
 				}
-			}while(esc1 < 14 || esc4 > 16);
+			}while(esc1 < 14 && esc4 > 16);
 			}
 		}
 		//final de esc1--- inicio de esc3------------------------------------------------------------------------------------
 		
 		if(esc3 < 16){//se falta mot em esc1
 			int dif3 = 0;
-			dif3 = 14 - esc3;//dif1 é o que falta em esc1
+			dif3 = (14 - esc3);//dif1 é o que falta em esc1
 			if(esc2 > 14){//se sobra mot em esc2
 				int dif2 = 0;
-				dif2 = esc2 - 14;//dif2 é o que sobra em esc2
+				dif2 = (esc2 - 14);//dif2 é o que sobra em esc2
 				do{
 				if(dif2 >= dif3){//se o que sobra é maior ou igual ao que falta... transfere.
 					for(int count = 0; count < x.length; count++){
@@ -268,13 +276,13 @@ public class EscalaMes {
 											var++;
 										}
 									}
-									if(var <= dif3 || var > dif3 & dif2 - var >= 0){
+									if((var <= dif3 & dif3 > 0) || (var > dif3 & dif3 > 0) && (dif2 - var) >= 0){
 										temp.setTransferido(true);
 										x[count].setEscala(3);
-										esc3 = esc3 + var;
-										esc2 = esc2 - var;
-										dif3 = dif3 - var;
-										dif2 = dif2 - var;
+										esc3 = (esc3 + var);
+										esc2 = (esc2 - var);
+										dif3 = (dif3 - var);
+										dif2 = (dif2 - var);
 										var = 0;
 									}
 									else{
@@ -286,12 +294,12 @@ public class EscalaMes {
 						}
 					}
 				}
-			}while(esc3 < 16 || esc2 > 14);
+			}while(esc3 < 16 && esc2 > 14);
 			}
 			//-------------------------------------------------------------------------
 			if(esc4 > 16){//se sobra mot em esc4
 				int dif4 = 0;
-				dif4 = esc4 - 16;//dif4 é o que sobra em esc4
+				dif4 = (esc4 - 16);//dif4 é o que sobra em esc4
 				do{
 				if(dif4 >= dif3){//se o que sobra é maior ou igual ao que falta... transfere.
 					for(int count = 0; count < x.length; count++){
@@ -304,13 +312,13 @@ public class EscalaMes {
 											var++;
 										}
 									}
-									if(var <= dif3 || var > dif3 & dif4 - var >= 0){
+									if((var <= dif3 & dif3 > 0) || (var > dif3 & dif3 > 0) && (dif4 - var) >= 0){
 										temp.setTransferido(true);
 										x[count].setEscala(3);
-										esc3 = esc3 + var;
-										esc4 = esc4 - var;
-										dif3 = dif3 - var;
-										dif4 = dif4 - var;
+										esc3 = (esc3 + var);
+										esc4 = (esc4 - var);
+										dif3 = (dif3 - var);
+										dif4 = (dif4 - var);
 										var = 0;
 									}
 									else{
@@ -322,17 +330,17 @@ public class EscalaMes {
 						}
 					}
 				}
-			}while(esc3 < 16 || esc4 > 16);
+			}while(esc3 < 16 && esc4 > 16);
 			}
 		}
 		//final de esc3--- inicio de esc2------------------------------------------------------------
 		
 		if(esc2 < 14){//se falta mot em esc2
 			int dif2 = 0;
-			dif2 = 14 - esc2;//dif2 é o que falta em esc2
+			dif2 = (14 - esc2);//dif2 é o que falta em esc2
 			if(esc1 > 14){//se sobra mot em esc1
 				int dif1 = 0;
-				dif1 = esc1 - 14;//dif1 é o que sobra em esc1
+				dif1 = (esc1 - 14);//dif1 é o que sobra em esc1
 				do{
 				if(dif1 >= dif2){//se o que sobra é maior ou igual ao que falta... transfere.
 					for(int count = 0; count < x.length; count++){
@@ -345,13 +353,13 @@ public class EscalaMes {
 											var++;
 										}
 									}
-									if(var <= dif2 || var > dif2 & dif1 - var >= 0){
+									if((var <= dif2 & dif2 > 0) || (var > dif2 & dif2 > 0) && (dif1 - var) >= 0){
 										temp.setTransferido(true);
 										x[count].setEscala(2);
-										esc2 = esc2 + var;
-										esc1 = esc1 - var;
-										dif2 = dif2 - var;
-										dif1 = dif1 - var;
+										esc2 = (esc2 + var);
+										esc1 = (esc1 - var);
+										dif2 = (dif2 - var);
+										dif1 = (dif1 - var);
 										var = 0;
 									}
 									else{
@@ -363,12 +371,12 @@ public class EscalaMes {
 						}
 					}
 				}
-			}while(esc2 < 14 || esc1 > 14);
+			}while(esc2 < 14 && esc1 > 14);
 			}
 			//-------------------------------------------------------------------------
 			if(esc3 > 16){//se sobra mot em esc3
 				int dif3 = 0;
-				dif3 = esc3 - 16;//dif3 é o que sobra em esc3
+				dif3 = (esc3 - 16);//dif3 é o que sobra em esc3
 				do{
 				if(dif3 >= dif2){//se o que sobra é maior ou igual ao que falta... transfere.
 					for(int count = 0; count < x.length; count++){
@@ -381,13 +389,13 @@ public class EscalaMes {
 											var++;
 										}
 									}
-									if(var <= dif2 || var > dif2 & dif3 - var >= 0){
+									if((var <= dif2 & dif2 > 0) || (var > dif2 & dif2 > 0) & (dif3 - var) >= 0){
 										temp.setTransferido(true);
 										x[count].setEscala(2);
-										esc2 = esc2 + var;
-										esc3 = esc3 - var;
-										dif2 = dif2 - var;
-										dif3 = dif3 - var;
+										esc2 = (esc2 + var);
+										esc3 = (esc3 - var);
+										dif2 = (dif2 - var);
+										dif3 = (dif3 - var);
 										var = 0;
 									}
 									else{
@@ -399,17 +407,17 @@ public class EscalaMes {
 						}
 					}
 				}
-			}while(esc2 < 14 || esc3 > 16);
+			}while(esc2 < 14 && esc3 > 16);
 			}
 		}
 		//final de esc2--- inicio de esc4------------------------------------------------------------------------------------
 
 		if(esc4 < 14){//se falta mot em esc4
 			int dif4 = 0;
-			dif4 = 14 - esc4;//dif2 é o que falta em esc2
+			dif4 = (14 - esc4);//dif2 é o que falta em esc2
 			if(esc1 > 14){//se sobra mot em esc1
 				int dif1 = 0;
-				dif1 = esc1 - 14;//dif1 é o que sobra em esc1
+				dif1 = (esc1 - 14);//dif1 é o que sobra em esc1
 				do{
 				if(dif1 >= dif4){//se o que sobra é maior ou igual ao que falta... transfere.
 					for(int count = 0; count < x.length; count++){
@@ -422,13 +430,13 @@ public class EscalaMes {
 											var++;
 										}
 									}
-									if(var <= dif4 || var > dif4 & dif1 - var >= 0){
+									if((var <= dif4 & dif4 > 0) || (var > dif4 & dif4 > 0) && (dif1 - var) >= 0){
 										temp.setTransferido(true);
 										x[count].setEscala(4);
-										esc4 = esc4 + var;
-										esc1 = esc1 - var;
-										dif4 = dif4 - var;
-										dif1 = dif1 - var;
+										esc4 = (esc4 + var);
+										esc1 = (esc1 - var);
+										dif4 = (dif4 - var);
+										dif1 = (dif1 - var);
 										var = 0;
 									}
 									else{
@@ -440,12 +448,12 @@ public class EscalaMes {
 						}
 					}
 				}
-			}while(esc4 < 16 || esc1 > 14);
+			}while(esc4 < 16 && esc1 > 14);
 			}
 			//-------------------------------------------------------------------------
 			if(esc3 > 16){//se sobra mot em esc3
 				int dif3 = 0;
-				dif3 = esc3 - 16;//dif3 é o que sobra em esc3
+				dif3 = (esc3 - 16);//dif3 é o que sobra em esc3
 				do{
 				if(dif3 >= dif4){//se o que sobra é maior ou igual ao que falta... transfere.
 					for(int count = 0; count < x.length; count++){
@@ -458,13 +466,13 @@ public class EscalaMes {
 											var++;
 										}
 									}
-									if(var <= dif4 || var > dif4 & dif3 - var >= 0){
+									if((var <= dif4 & dif4 > 0) || (var > dif4 & dif4 > 0) & (dif3 - var) >= 0){
 										temp.setTransferido(true);
 										x[count].setEscala(4);
-										esc4 = esc4 + var;
-										esc3 = esc3 - var;
-										dif4 = dif4 - var;
-										dif3 = dif3 - var;
+										esc4 = (esc4 + var);
+										esc3 = (esc3 - var);
+										dif4 = (dif4 - var);
+										dif3 = (dif3 - var);
 										var = 0;
 									}
 									else{
@@ -476,7 +484,7 @@ public class EscalaMes {
 						}
 					}
 				}
-			}while(esc4 < 16 || esc3 > 16);
+			}while(esc4 < 16 && esc3 > 16);
 			}
 		}
 		//final de esc4---------------------------------------------------------------------------------------
@@ -518,6 +526,8 @@ public class EscalaMes {
 	}
 	
 	private void contarMulheres( Selecionado [] x) throws UsuarioNaoEncontradoException{
+
+		
 		
 		int esc0 = 0, esc1 = 0, esc2 = 0, esc3 = 0, esc4 = 0;
 		Pessoa p = null;
@@ -617,9 +627,10 @@ public class EscalaMes {
 		//---------------------------------------------------------------------------------------
 			
 		do{
+			int conta1 = (esc1 - 14), conta2 = (esc2 - 14), conta3 = (esc3 - 16), conta4 = (esc4 - 16);
 			
 		if(esc1 > 14){
-			int conta1 = esc1 - 14, conta2 = esc2 - 14, conta3 = esc3 - 16, conta4 = esc4 - 16;
+			//RETIRADO CONTA
 			int contar = 0;
 			for(int i = 0; i < x.length; i++){
 				p = Servidor.getInstance().procurar(x[i].getMatricula());
@@ -631,10 +642,11 @@ public class EscalaMes {
 								if(x[i].getDiasSorteados(j) == 0){
 									contar++;
 								}
-								if(contar <= conta1){
+							}
+//-------------------
 									if(!temp.isTransferido()){
 										if(conta2 < 0){
-											int s = contar + conta2;
+											int s = (contar + conta2);
 											if(s <= 0){
 												x[i].setEscala(2);
 												temp.setTransferido(true);
@@ -647,7 +659,7 @@ public class EscalaMes {
 											
 										}
 										else if(conta4 < 0){
-											int s = contar + conta4;
+											int s = (contar + conta4);
 											if(s <= 0){
 												x[i].setEscala(4);
 												temp.setTransferido(true);
@@ -662,7 +674,9 @@ public class EscalaMes {
 											contar = 0;
 										}
 									}
-								}
+									else{
+										contar = 0;
+//------------------------								
 							}
 						}
 					}
@@ -670,7 +684,7 @@ public class EscalaMes {
 			}
 		}
 		if(esc3 > 16){
-			int conta1 = esc1 - 14, conta2 = esc2 - 14, conta3 = esc3 - 16, conta4 = esc4 - 16;
+			//RETIRADO CONTA
 			int contar = 0;
 			for(int i = 0; i < x.length; i++){
 				p = Servidor.getInstance().procurar(x[i].getMatricula());
@@ -682,10 +696,11 @@ public class EscalaMes {
 								if(x[i].getDiasSorteados(j) == 0){
 									contar++;
 								}
-								if(contar <= conta3){
+							}
+//------------------------------
 									if(!temp.isTransferido()){
-										if(conta2 > 0){
-											int s = contar + conta2;
+										if(conta2 < 0){
+											int s = (contar + conta2);
 											if(s <= 0){
 												x[i].setEscala(2);
 												temp.setTransferido(true);
@@ -698,7 +713,7 @@ public class EscalaMes {
 											
 										}
 										else if(conta4 < 0){
-											int s = contar + conta4;
+											int s = (contar + conta4);
 											if(s <= 0){
 												x[i].setEscala(4);
 												temp.setTransferido(true);
@@ -713,7 +728,9 @@ public class EscalaMes {
 											contar = 0;
 										}
 									}
-								}
+									else{
+										contar = 0;
+//---------------------------------------
 							}
 						}
 					}
@@ -722,7 +739,7 @@ public class EscalaMes {
 		}//BELEZAU ATE AKI -----------------------------
 		
 		if(esc4 > 16){
-			int conta1 = esc1 - 14, conta2 = esc2 - 14, conta3 = esc3 - 16, conta4 = esc4 - 16;
+			//RETIRADO CONTA
 			int contar = 0;
 			for(int i = 0; i < x.length; i++){
 				p = Servidor.getInstance().procurar(x[i].getMatricula());
@@ -734,11 +751,15 @@ public class EscalaMes {
 								if(x[i].getDiasSorteados(j) == 0){
 									contar++;
 								}
-								if(contar <= conta4){
+							}
+//---------------------------
 									if(!temp.isTransferido()){
 										if(conta1 < 0){
-											int s = contar + conta1;
+											
+											int s = (contar + conta1);
+											
 											if(s <= 0){
+												
 												x[i].setEscala(1);
 												temp.setTransferido(true);
 												conta1 += contar;
@@ -750,7 +771,7 @@ public class EscalaMes {
 											
 										}
 										else if(conta3 < 0){
-											int s = contar + conta3;
+											int s = (contar + conta3);
 											if(s <= 0){
 												x[i].setEscala(3);
 												temp.setTransferido(true);
@@ -765,7 +786,9 @@ public class EscalaMes {
 											contar = 0;
 										}
 									}
-								}
+									else{
+										contar = 0;
+//------------------
 							}
 						}
 					}
@@ -774,9 +797,10 @@ public class EscalaMes {
 		}
 		
 		if(esc2 > 14){
-			int conta1 = esc1 - 14, conta2 = esc2 - 14, conta3 = esc3 - 16, conta4 = esc4 - 16;
-			int contar = 0;
+			//RETIRADO CONTAS 1, 2...
+			
 			for(int i = 0; i < x.length; i++){
+				int contar = 0;
 				p = Servidor.getInstance().procurar(x[i].getMatricula());
 				temp = (Funcionario) p;
 				if(temp.getSexo() == 'F'){
@@ -786,10 +810,11 @@ public class EscalaMes {
 								if(x[i].getDiasSorteados(j) == 0){
 									contar++;
 								}
-								if(contar <= conta2){
+							}
+//-------------------------
 									if(!temp.isTransferido()){
 										if(conta1 < 0){
-											int s = contar + conta1;
+											int s = (contar + conta1);
 											if(s <= 0){
 												x[i].setEscala(1);
 												temp.setTransferido(true);
@@ -802,7 +827,7 @@ public class EscalaMes {
 											
 										}
 										else if(conta3 < 0){
-											int s = contar + conta3;
+											int s = (contar + conta3);
 											if(s <= 0){
 												x[i].setEscala(3);
 												temp.setTransferido(true);
@@ -817,14 +842,256 @@ public class EscalaMes {
 											contar = 0;
 										}
 									}
+									else{
+										contar = 0;
+									}
+//----------------------
+							}
+						}
+					}
+				}
+			}
+		System.out.println(esc1 + " " + esc2 + " " + esc3 + " " + esc4);
+		}while(esc1 > 14 | esc2 > 14 | esc3 > 16 | esc4 > 16);
+	}
+	
+	private void contarHomens(Selecionado [] x) throws UsuarioNaoEncontradoException{
+		int esc1 = 0, esc2 = 0, esc3 = 0, esc4 = 0, esc0 = 0, contar = 0;
+		Pessoa [] p = new Funcionario [x.length];
+		Funcionario temp = null;
+		
+		for(int i = 0; i < x.length; i++){
+			try {
+				p[i] = Servidor.getInstance().procurar(x[i].getMatricula());
+			} catch (UsuarioNaoEncontradoException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
+		for(int i = 0; i < x.length; i++){
+			int escala = x[i].getEscala();
+			switch(escala){
+			case 1: {
+				esc1 += escala;
+				break;
+			}
+			case 2: {
+				esc2 += escala;
+				break;
+			}
+			case 3: {
+				esc3 += escala;
+				break;
+			}
+			case 4: {
+				esc4 += escala;
+				break;
+			}
+			case 0: {
+				esc0 += escala;
+				break;
+			}
+			}
+		}
+		
+			if(esc0 != 0){
+				if(esc1 < 28){
+					for(int i = 0; i < this.qtdEscolhidos; i++){
+						temp = (Funcionario) Servidor.getInstance().procurar(x[i].getMatricula());
+						if(x[i].getEscala() == 0 & temp.getSexo() == 'M' & (esc1 + x[i].getQtdExtras()) <= 28 ){
+							x[i].setEscala(1);
+							esc0 = esc0 - x[i].getQtdExtras();
+							esc1 = esc1 + x[i].getQtdExtras();
+							break;
+						}
+					}
+				}
+				if(esc2 < 28){
+					for(int i = 0; i < this.qtdEscolhidos; i++){
+						temp = (Funcionario) Servidor.getInstance().procurar(x[i].getMatricula());
+						if(x[i].getEscala() == 0 & temp.getSexo() == 'M' & (esc2 + x[i].getQtdExtras()) <= 28 ){
+							x[i].setEscala(2);
+							esc0 -= x[i].getQtdExtras();
+							esc2 += x[i].getQtdExtras();
+							break;
+						}
+					}
+				}
+				if(esc3 < 32){System.out.println("IF ESC 3");
+					for(int i = 0; i < this.qtdEscolhidos; i++){
+						temp = (Funcionario) Servidor.getInstance().procurar(x[i].getMatricula());
+						if(x[i].getEscala() == 0 & temp.getSexo() == 'M' & (esc3 + x[i].getQtdExtras()) <= 32 ){
+							x[i].setEscala(3);
+							esc0 -= x[i].getQtdExtras();
+							esc3 += x[i].getQtdExtras();
+							break;
+						}
+					}
+				}
+				if(esc4 < 32){
+					for(int i = 0; i < this.qtdEscolhidos; i++){
+						temp = (Funcionario) Servidor.getInstance().procurar(x[i].getMatricula());
+						if(x[i].getEscala() == 0 & temp.getSexo() == 'M' & (esc4 + x[i].getQtdExtras()) <= 32){
+							x[i].setEscala(4);
+							esc0 -= x[i].getQtdExtras();
+							esc4 += x[i].getQtdExtras();
+							break;
+						}
+					}
+				}
+				
+				if(esc1 < 28 & esc2 < 28 & esc3 < 32 & esc4 < 32){//tem de ser igual
+					esc0 = 0;
+					System.out.println("IF ESC 0 recebendo 0");
+				}
+			}
+			//-----------------------------------------------------------------
+			if(esc1 > 28){
+				for(int i = 0; i < x.length; i++){
+					contar = 0;
+					temp = (Funcionario) p[i];
+					if(x[i].getEscala() == 1){
+							if(!temp.isMotorista()){
+								if(temp.getSexo() == 'M'){
+									if(!temp.isTransferido()){
+										for(int j = 0; j < x[i].getQtdExtras(); j++){
+											if(x[i].getDiasSorteados(j) == 0){
+												contar += 1;
+											}
+										}
+										if( (esc2 + contar) <= 28){
+											x[i].setEscala(2);
+											temp.setTransferido(true);
+											esc2 += contar;
+											esc1 -= contar;
+										}
+										else if((esc4 + contar) <= 32){
+											x[i].setEscala(4);
+											temp.setTransferido(true);
+											esc4 += contar;
+											esc1 -= contar;
+										}
+	
+										if(esc1 < 28){
+											break;
+										}
 								}
 							}
 						}
 					}
 				}
 			}
-		}
-		}while(esc1 > 14 && esc2 > 14 && esc3 > 16 && esc4 > 16);
+			if(esc2 > 28){
+				for(int i = 0; i < x.length; i++){
+					contar = 0;
+					temp = (Funcionario) p[i];
+					if(x[i].getEscala() == 2){
+							if(!temp.isMotorista()){
+								if(temp.getSexo() == 'M'){
+									if(!temp.isTransferido()){
+										for(int j = 0; j < x[i].getQtdExtras(); j++){
+											if(x[i].getDiasSorteados(j) == 0){
+												contar += 1;
+											}
+										}
+										if( (esc1 + contar) <= 28){
+											x[i].setEscala(1);
+											temp.setTransferido(true);
+											esc1 += contar;
+											esc2 -= contar;
+										}
+										else if((esc3 + contar) <= 32){
+											x[i].setEscala(3);
+											temp.setTransferido(true);
+											esc3 += contar;
+											esc2 -= contar;
+										}
+	
+										if(esc2 < 28){
+											break;
+										}
+								}
+							}
+						}
+					}
+				}
+				//-----------------------
+			}
+				if(esc3 > 28){
+					for(int i = 0; i < x.length; i++){
+						contar = 0;
+						temp = (Funcionario) p[i];
+						if(x[i].getEscala() == 3){
+								if(!temp.isMotorista()){
+									if(temp.getSexo() == 'M'){
+										if(!temp.isTransferido()){
+											for(int j = 0; j < x[i].getQtdExtras(); j++){
+												if(x[i].getDiasSorteados(j) == 0){
+													contar += 1;
+												}
+											}
+											if( (esc2 + contar) <= 28){
+												x[i].setEscala(2);
+												temp.setTransferido(true);
+												esc2 += contar;
+												esc3 -= contar;
+											}
+											else if((esc4 + contar) <= 32){
+												x[i].setEscala(4);
+												temp.setTransferido(true);
+												esc4 += contar;
+												esc3 -= contar;
+											}
+		
+											if(esc3 < 32){
+												break;
+											}
+									}
+								}
+							}
+						}
+					}
+				}
+				if(esc4 > 32){
+					for(int i = 0; i < x.length; i++){
+						contar = 0;
+						temp = (Funcionario) p[i];
+						if(x[i].getEscala() == 4){
+								if(!temp.isMotorista()){
+									if(temp.getSexo() == 'M'){
+										if(!temp.isTransferido()){
+											for(int j = 0; j < x[i].getQtdExtras(); j++){
+												if(x[i].getDiasSorteados(j) == 0){
+													contar += 1;
+												}
+											}
+											if( (esc1 + contar) <= 28){
+												x[i].setEscala(1);
+												temp.setTransferido(true);
+												esc1 += contar;
+												esc4 -= contar;
+											}
+											else if((esc3 + contar) <= 32){
+												x[i].setEscala(3);
+												temp.setTransferido(true);
+												esc3 += contar;
+												esc4 -= contar;
+											}
+		
+											if(esc4 < 32){
+												break;
+											}
+									}
+								}
+							}
+						}
+					}
+				
+				//-----------------------
+				}
+		
 	}
 	
 	//OK
@@ -832,13 +1099,11 @@ public class EscalaMes {
 		boolean resultado = false;
 		int i;
 		do{
-			int contaaki = 0;
-			for(i = 0; i < this.escolhidos.length; i ++){
+			for(i = 0; i < this.escolhidos.length; i ++){	
 			String x;
 			int y, z;
 			Scanner sc = new Scanner(System.in);
-			System.out.println(contaaki++);
-			System.out.println("Insira a matricula do escolhido:");
+			System.out.println("Insira a matricula do escolhido:" + (i+1));
 			x = sc.nextLine();//tem de identificar se a matricula existe no repositorio
 			System.out.println("Insira a escala do escolhido:");
 			y = sc.nextInt();
@@ -846,11 +1111,27 @@ public class EscalaMes {
 			z = sc.nextInt();
 			Selecionado temp = new Selecionado(x, y, z);
 			this.escolhidos[i] = temp;
+			Pessoa f = null;
+			f = cadastroPessoa.procurar(temp.getMatricula());
+			cadastroPessoa.remover(temp.getMatricula());
+			((Funcionario) f).atualizaEscala(y, z);
+			try {
+				cadastroPessoa.cadastrarFuncionario((Funcionario) f);
+			} catch (UsuarioJaCadastradoException e) {
+				e.printStackTrace();
+			}
+			
 			
 			}
 			
 			resultado = this.validarArray(this.escolhidos);//ajusta os numeros basicos.
-			this.contarMotEscala(this.escolhidos);//ajusta escala 0 pra outras.
+			for(int co = 0; co < this.qtdEscolhidos; co++){
+				System.out.println(this.escolhidos[co].toString());
+			}
+		//	this.contarMotEscala(this.escolhidos);//ajusta todos os motoristas ok
+		//	this.contarMulheres(this.escolhidos);//ajusta todas as muheres não motoristas.
+			
+			
 			
 			for(int co = 0; co < this.qtdEscolhidos; co++){
 				System.out.println(this.escolhidos[co].toString());

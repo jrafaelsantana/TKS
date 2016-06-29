@@ -24,6 +24,28 @@ public class RepositorioPessoa implements IRepositorioPessoa, Serializable {
 	Pessoa pessoa1 = new Funcionario("José Rafael", "Cabo", 'M', "12345", true, "1415");
 	Pessoa pessoa2 = new Funcionario("Éder Lucena", "Major", 'F', "98765", false, "123");
 	Pessoa administrador = new Administrador("Administrador", 'M', "Admin", "Admin");
+	
+	Pessoa pessoa01 = new Funcionario("José", "Cabo", 'M', "1", true, "1415");//5
+	Pessoa pessoa02 = new Funcionario("Éder", "Major", 'M', "2", false, "123");//20
+	Pessoa pessoa03 = new Funcionario("Mariano", "Cabo", 'M', "3", true, "1415");//5
+	Pessoa pessoa04 = new Funcionario("Ednaldo", "Major", 'M', "4", false, "123");//20
+	Pessoa pessoa05 = new Funcionario("Vitor", "Cabo", 'M', "5", true, "1415");//1 ------ 0
+	Pessoa pessoa06 = new Funcionario("Lucinda", "Major", 'F', "6", false, "123");//4
+	Pessoa pessoa07 = new Funcionario("Gabriela", "Cabo", 'F', "7", true, "1415");//5
+	Pessoa pessoa08 = new Funcionario("Adriano", "Major", 'F', "8", false, "123");//5
+	Pessoa pessoa09 = new Funcionario("Marinho", "Cabo", 'M', "9", true, "1415");//5
+	Pessoa pessoa10 = new Funcionario("Kenya", "Major", 'F', "10", true, "123");//5 --- 30
+	Pessoa pessoa11 = new Funcionario("Vitorio", "Cabo", 'M', "11", true, "1415");//10
+	Pessoa pessoa12 = new Funcionario("Diogo", "Major", 'M', "12", true, "123");//5
+	Pessoa pessoa13 = new Funcionario("Pakura", "Cabo", 'M', "13", true, "1415");//5
+	Pessoa pessoa14 = new Funcionario("Sakura", "Major", 'M', "14", true, "123");//4
+	Pessoa pessoa15 = new Funcionario("kabuto", "Cabo", 'M', "15", true, "1415");//10 -- 0
+	Pessoa pessoa16 = new Funcionario("Mirela", "Major", 'F', "16", false, "123");//5
+	Pessoa pessoa17 = new Funcionario("Jacira", "Cabo", 'F', "17", false, "1415");//4 
+	Pessoa pessoa18 = new Funcionario("Dinoau", "Major", 'M', "18", true, "123");//7
+	Pessoa pessoa19 = new Funcionario("Mario", "Cabo", 'M', "19", true, "1415");//6
+	Pessoa pessoa20 = new Funcionario("Georgia", "Major", 'F', "20", true, "123");//16 -- 23
+	
 
 	public static RepositorioPessoa getInstance() {
 		if (instance == null) {
@@ -38,6 +60,26 @@ public class RepositorioPessoa implements IRepositorioPessoa, Serializable {
 		pessoa.add(pessoa1);
 		pessoa.add(pessoa2);
 		pessoa.add(administrador);
+		pessoa.add(pessoa01);
+		pessoa.add(pessoa02);
+		pessoa.add(pessoa03);
+		pessoa.add(pessoa04);
+		pessoa.add(pessoa05);
+		pessoa.add(pessoa06);
+		pessoa.add(pessoa07);
+		pessoa.add(pessoa08);
+		pessoa.add(pessoa09);
+		pessoa.add(pessoa10);
+		pessoa.add(pessoa11);
+		pessoa.add(pessoa12);
+		pessoa.add(pessoa13);
+		pessoa.add(pessoa14);
+		pessoa.add(pessoa15);
+		pessoa.add(pessoa16);
+		pessoa.add(pessoa17);
+		pessoa.add(pessoa18);
+		pessoa.add(pessoa19);
+		pessoa.add(pessoa20);
 	}
 
 	@Override
